@@ -90,7 +90,7 @@ export namespace draco::memory
 			}
 			assert(pos == 0); // fraudulent mark provided
 			currentPtr = (uintptr_t)&((*lastNode)->data[oldPos]);
-			reqSize += ((reqSize + currentPtr - 1) & alignMask);
+			reqSize = size + ((align - (currentPtr & alignMask)) & alignMask);
 			if (!(*lastNode) || (reqSize > ((*lastNode)->size - oldPos)))
 			{
 				if (*lastNode)
