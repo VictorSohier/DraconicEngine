@@ -109,7 +109,7 @@ export namespace draco::memory
 
 		Error free(Allocator alloc, Slice block)
 		{
-			VirtualFree(block.data, block.size, MEM_DECOMMIT);
+			VirtualFree(block.data, 0, MEM_RELEASE);
 			return Error::Okay;
 		}
 #endif
