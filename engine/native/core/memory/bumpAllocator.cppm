@@ -109,6 +109,7 @@ export namespace draco::memory
 					return Error::OutOfMemory;
 				}
 				(*node) = (Node *)newBlock.data;
+				(*node)->next = nullptr;
 				(*node)->size = newBlock.size - sizeof(Node);
 				pos = 0;
 				lastNode = node;
