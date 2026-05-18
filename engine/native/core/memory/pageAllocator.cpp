@@ -59,11 +59,11 @@ namespace draco::memory::page
 		)
 		{
 			SYSTEM_INFO sysinfo;
-			unsigned long pageSizeSub1;
+			size_t pageSizeSub1;
 			size_t reqSize;
 			void *ptr;
 			GetSystemInfo(&sysinfo);
-			pageSizeSub1 = sysinfo.dwAllocationGranularity - 1;
+			pageSizeSub1 = (size_t)(sysinfo.dwAllocationGranularity - 1);
 			// Coderabbit, this is for a 64-bit machine with 48-bit addressing,
 			// if this overflows, the request was never going to fit into
 			// memory to begin with.
