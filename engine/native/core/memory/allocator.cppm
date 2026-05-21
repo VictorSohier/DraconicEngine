@@ -1,4 +1,5 @@
 module;
+
 #include <source_location>
 
 export module core.memory.allocator;
@@ -22,14 +23,13 @@ export namespace draco::memory
 	struct Allocator
 	{
 		AllocatorVTbl *vtbl;
-		void *allocatorData;
+		rawptr allocatorData;
 		inline Error alloc(
 			Slice *dst,
-			size_t size,
-			size_t align
+			usize size,
+			usize align
 #ifdef DEBUG
 			, std::source_location loc = std::source_location::current()
-			// std::stacktrace trace = std::stacktrace::current()
 #endif
 		);
 		inline Error free(Slice block);
@@ -68,7 +68,7 @@ export namespace draco::memory
 
 	Error nilFreeAll(Allocator alloc);
 
-	void asAllocatorVoid(Allocator *dst, void *alloc, AllocatorVTbl *vtbl);
+	void asAllocatorVoid(Allocator *dst, rawptr alloc, AllocatorVTbl *vtbl);
 	inline Error Allocator::alloc(
 			Slice *dst,
 			usize size,

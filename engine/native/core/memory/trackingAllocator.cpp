@@ -1,8 +1,6 @@
 module;
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 #include <cstring>
 #include <source_location>
 
@@ -20,17 +18,17 @@ namespace draco::memory::tracking
 	Error alloc(
 		Allocator alloc,
 		Slice *dst,
-		size_t size,
-		size_t align
+		usize size,
+		usize align
 #ifdef DEBUG
 		, std::source_location loc
 #endif
 	)
 	{
 		TrackingAllocator *allocData = (TrackingAllocator *)alloc.allocatorData;
-		size_t reqAlign = std::max(align, alignof(Node));
-		size_t alignMask = reqAlign - 1;
-		size_t reqSize = (size + sizeof(Node) + alignMask) & ~alignMask;
+		usize reqAlign = std::max(align, alignof(Node));
+		usize alignMask = reqAlign - 1;
+		usize reqSize = (size + sizeof(Node) + alignMask) & ~alignMask;
 		Slice tmpDst;
 		Node *node;
 		Error err = allocData->base.vtbl->alloc(
@@ -43,7 +41,7 @@ namespace draco::memory::tracking
 #endif
 		);
 		if (err != Error::Okay) { return err; }
-		node = (Node *)&(((uint8_t *)tmpDst.data)[tmpDst.size - sizeof(Node)]);
+		node = (Node *)&(((u8 *)tmpDst.data)[tmpDst.size - sizeof(Node)]);
 		memset(node, 0, sizeof(Node));
 		if (allocData->nodes)
 		{
@@ -87,7 +85,7 @@ namespace draco::memory::tracking
 				}
 				memset(node, 0, sizeof(Node));
 			}
-			[[fallthrough]]
+			[[fallthrough]];
 		default:
 			return err;
 		}
@@ -101,7 +99,7 @@ namespace draco::memory::tracking
 		{
 		case Error::Okay:
 			allocData->nodes = nullptr;
-			[[fallthrough]]
+			[[fallthrough]];
 		default:
 			return err;
 		}

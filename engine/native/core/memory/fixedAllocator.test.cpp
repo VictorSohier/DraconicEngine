@@ -2,11 +2,12 @@
 #include <doctest.h>
 
 import core.memory;
+import core.stdtypes;
 
 TEST_CASE("Fixed allocator is correctly aligned")
 {
 	using namespace draco::memory;
-	alignas(8) uint8_t buffer[1024];
+	alignas(8) draco::u8 buffer[1024];
 	fixed::FixedAllocator fixedAlloc;
 	Allocator alloc;
 	Slice block;

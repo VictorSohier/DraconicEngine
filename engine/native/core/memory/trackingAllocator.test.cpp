@@ -3,6 +3,7 @@
 
 import core.memory;
 import core.memory.slice;
+import core.stdtypes;
 
 TEST_CASE("Tracking allocator basic functions")
 {

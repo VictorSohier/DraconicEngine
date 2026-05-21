@@ -14,8 +14,8 @@ export namespace draco::memory
 		Error alloc(
 			Allocator alloc,
 			Slice *dst,
-			size_t size,
-			size_t align
+			usize size,
+			usize align
 #ifdef DEBUG
 			, std::source_location loc
 #endif

@@ -1,6 +1,5 @@
 module;
 
-#include <cstddef>
 #include <source_location>
 
 export module core.memory.trackingAllocator;
@@ -13,8 +12,8 @@ export namespace draco::memory
 	{
 		struct Analytics
 		{
-			size_t totalAllocatedBytes;
-			size_t activeAllocationsCount;
+			usize totalAllocatedBytes;
+			usize activeAllocationsCount;
 		};
 
 // TODO(Victor Sohier): Set this up to handle stack traces when clang finally
@@ -45,8 +44,8 @@ export namespace draco::memory
 		Error alloc(
 			Allocator alloc,
 			Slice *dst,
-			size_t size,
-			size_t align
+			usize size,
+			usize align
 #ifdef DEBUG
 			, std::source_location loc
 #endif
@@ -54,9 +53,9 @@ export namespace draco::memory
 		Error free(Allocator alloc, Slice block);
 		Error freeAll(Allocator alloc);
 		void getAnalytics(TrackingAllocator alloc, Analytics *analytics);
-		size_t getActiveAllocations(
+		usize getActiveAllocations(
 			TrackingAllocator alloc,
-			size_t detailsCount,
+			usize detailsCount,
 			AllocationDetails *details
 		);
 

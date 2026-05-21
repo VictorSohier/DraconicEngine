@@ -14,7 +14,7 @@ export namespace draco::memory
 	{
 		struct FixedAllocator
 		{
-			uint8_t *buffer;
+			u8 *buffer;
 			usize size;
 			bool allocated;
 		};
