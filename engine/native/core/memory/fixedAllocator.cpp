@@ -2,8 +2,6 @@ module;
 
 #include <bit>
 #include <cassert>
-#include <cstddef>
-#include <cstdint>
 #include <source_location>
 
 module core.memory.fixedAllocator;
@@ -20,16 +18,16 @@ namespace draco::memory::fixed
 	Error alloc(
 		Allocator alloc,
 		Slice *dst,
-		size_t size,
-		size_t align
+		usize size,
+		usize align
 #ifdef DEBUG
 		, std::source_location loc
 #endif
 	)
 	{
 		FixedAllocator *allocData = (FixedAllocator*)alloc.allocatorData;
-		size_t alignMask = align - 1;
-		size_t alignedSize = allocData->size - (
+		usize alignMask = align - 1;
+		usize alignedSize = allocData->size - (
 			(align - (((uintptr_t)allocData->buffer) & alignMask))
 			& alignMask
 		);
@@ -39,7 +37,7 @@ namespace draco::memory::fixed
 			return Error::OutOfMemory;
 		}
 		dst->data = (void *)(
-			((uintptr_t)&(allocData->buffer[alignMask])) & ~alignMask
+			((uintptr)&(allocData->buffer[alignMask])) & ~alignMask
 		);
 		dst->size = alignedSize;
 		allocData->allocated = true;

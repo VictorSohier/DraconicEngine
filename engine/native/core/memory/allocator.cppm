@@ -1,9 +1,9 @@
 module;
-#include <cstddef>
 #include <source_location>
 
 export module core.memory.allocator;
 export import core.memory.slice;
+export import core.stdtypes;
 
 export namespace draco::memory
 {
@@ -41,8 +41,8 @@ export namespace draco::memory
 		using AllocFn = Error (*)(
 			Allocator alloc,
 			Slice *dst,
-			size_t size,
-			size_t align
+			usize size,
+			usize align
 #ifdef DEBUG
 			, std::source_location loc
 #endif
@@ -57,8 +57,8 @@ export namespace draco::memory
 	Error nilAlloc(
 		Allocator alloc,
 		Slice *dst,
-		size_t size,
-		size_t align
+		usize size,
+		usize align
 #ifdef DEBUG
 		, std::source_location loc
 #endif
@@ -71,8 +71,8 @@ export namespace draco::memory
 	void asAllocatorVoid(Allocator *dst, void *alloc, AllocatorVTbl *vtbl);
 	inline Error Allocator::alloc(
 			Slice *dst,
-			size_t size,
-			size_t align
+			usize size,
+			usize align
 #ifdef DEBUG
 			, std::source_location loc
 #endif

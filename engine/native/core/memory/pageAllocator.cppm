@@ -1,11 +1,11 @@
 module;
 
-#include <cstddef>
 #include <source_location>
 
 export module core.memory.pageAllocator;
 export import core.memory.allocator;
 export import core.memory.slice;
+export import core.stdtypes;
 
 export namespace draco::memory
 {

@@ -1,14 +1,12 @@
 module;
 
 #include <cassert>
-#include <cstddef>
-#include <cstdint>
-#include <cstring>
 #include <source_location>
 
 export module core.memory.bumpAllocator;
 export import core.memory.allocator;
 export import core.memory.slice;
+export import core.stdtypes;
 
 export namespace draco::memory
 {
@@ -17,23 +15,23 @@ export namespace draco::memory
 		struct Node
 		{
 			Node *next;
-			size_t size;
-			uint8_t data[];
+			usize size;
+			u8 data[];
 		};
 
 		struct BumpAllocator
 		{
 			Allocator base;
 			Node *first;
-			size_t minAllocRequest;
-			size_t allocated;
+			usize minAllocRequest;
+			usize allocated;
 		};
 
 		void init(
 			BumpAllocator *alloc,
 			Allocator baseAlloc,
 			// one page by default on unix-like systems
-			size_t minAllocRequest = (1 << 12)
+			usize minAllocRequest = (1 << 12)
 		);
 
 		void deinit(BumpAllocator *alloc);
@@ -41,8 +39,8 @@ export namespace draco::memory
 		Error alloc(
 			Allocator alloc,
 			Slice *dst,
-			size_t size,
-			size_t align
+			usize size,
+			usize align
 #ifdef DEBUG
 			, std::source_location loc
 #endif
@@ -56,9 +54,9 @@ export namespace draco::memory
 			.freeAll = freeAll,
 		};
 
-		size_t saveMark(BumpAllocator *self);
+		usize saveMark(BumpAllocator *self);
 
-		void resumeMark(BumpAllocator *self, size_t mark);
+		void resumeMark(BumpAllocator *self, usize mark);
 
 		inline void asAllocator(Allocator *dst, BumpAllocator *alloc)
 		{
