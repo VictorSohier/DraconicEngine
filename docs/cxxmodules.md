@@ -106,14 +106,14 @@ Our `CMake` project contains scripts that make it easy to add modules to the sou
 Simply add your library containing the modules to a subdirectory
 and use the `add_modules_library` function.
 
-In this example, the library is called "my_modules".
-It exports module_1 and module_2, which in turn use subcomponent_1
-and subcomponent_2 modules as well.
+In this example, the library is called `my_modules`.
+It exports `module_1` and `module_2`, which in turn use `subcomponent_1`
+and `subcomponent_2` modules as well.
 Most of these modules have an internal implementation unit as discussed above.
-We also provide two unit test programs for the my_modules library.
+We also provide two unit test programs for the `my_modules` library.
 Files that end in `.test.cpp` are automatically added to CTest.
 
-```
+```text
 my_modules/
 ├── subcomponent_1/
 |   ├── subcomponent_1.cppm
@@ -129,7 +129,7 @@ my_modules/
 └── CMakeLists.txt
 ```
 
-The CMakelists.txt in the my_modules directory needs to refer to the modules libraries
+The CMakeLists.txt in `my_modules` needs to refer to the modules libraries
 in its subdirectories.
 
 ```cmake
@@ -137,7 +137,7 @@ add_modules_library(subcomponent_1)
 add_modules_library(subcomponent_2)
 ```
 
-From the parent directory of my_modules, simply do
+From the parent directory of `my_modules`, simply do
 
 ```cmake
 add_modules_library(my_modules)
